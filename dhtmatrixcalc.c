@@ -1,16 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 #include <time.h>
 
 // definition of modules
 
 #include "dhtmatrixcalc.h"
+#include "mathutils.h"
 
 // definition of global constatns
 
-#define DH_PARAMS_COLS 4
-#define TRANSFORM_MATRIX_DIM 4
+#include "globalconstants.h"
 
 // definition of functions
 
@@ -19,11 +18,11 @@ int twoMatrixMultiplication(float **left_mx, int l_rows, int l_cols, float **rig
 
 int pointCalculation(int links, float** array) {
 	// 0. Dfining time
-	clock_t start, end;
-	double cpu_time_used;
-
-	start = clock();
-
+//	clock_t start, end;
+//	double cpu_time_used;
+	
+//	start = clock();
+	
 	// 1. First step is filling DH parametrs
 	int rows, cols;
 	//	printf("Input number of links: ");
@@ -92,10 +91,10 @@ int pointCalculation(int links, float** array) {
 	}
 	free(array_of_T_mx);
 	// end
-	end = clock();
-	cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
+//	end = clock();
+//	cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
 
-	printf("Time %.5f seconds\n", cpu_time_used);
+//	printf("Time %.5f seconds\n", cpu_time_used);
        
 	return 0;
 }

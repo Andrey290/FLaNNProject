@@ -1,0 +1,8 @@
+#ifndef GLOBALCONSTANTS_H
+#define GLOBALCONSTANTS_H
+
+#define DH_PARAMS_COLS 4
+#define TRANSFORM_MATRIX_DIM 4
+#define CIRCLE 360
+
+#endif
