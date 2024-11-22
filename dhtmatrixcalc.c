@@ -14,11 +14,10 @@
 
 // definition of functions
 
-int fillingDHParametrs(float **array, int rows, int cols);
 int fillingSingleTransformationMatrix(float **t_matrix, int index, float **array);
 int twoMatrixMultiplication(float **left_mx, int l_rows, int l_cols, float **right_mx, int r_rows, int r_cols);
 
-int pointCalculation(void) {
+int pointCalculation(int links, float** array) {
 	// 0. Dfining time
 	clock_t start, end;
 	double cpu_time_used;
@@ -26,10 +25,9 @@ int pointCalculation(void) {
 	start = clock();
 
 	// 1. First step is filling DH parametrs
-	int links, rows, cols;
+	int rows, cols;
 	//	printf("Input number of links: ");
 	//	scanf("%d", &links);
-	links = 4;
 	rows = links;
 	cols = DH_PARAMS_COLS;
 
@@ -37,14 +35,7 @@ int pointCalculation(void) {
 	//	printf("rows: %d, ", rows);
 	//	printf("cols: %d.\n", cols);
 	
-	float **array = malloc(rows * sizeof(float *));
-	for (int i = 0; i < rows; i++) {
-		array[i] = malloc(cols * sizeof(float));
-	}
-
-	fillingDHParametrs(array, rows, cols);
-	
-	/*
+/*	
 	printf("\nFilled array of DH parametrs: \n");
 	for (int i = 0; i < rows; i++) {
 		for (int j = 0; j < cols; j++) {
@@ -52,7 +43,7 @@ int pointCalculation(void) {
 		}
 		printf("\n");
 	}
-	*/
+*/	
 
 	// 2. Second step is filling transformation matrixes  
 	// allocation space for T_matrixes
@@ -69,35 +60,30 @@ int pointCalculation(void) {
 	}
 
 	// Test-output of last T-matrix
-	/* printf("\nLast T-matrix output:\n");
+/*	 printf("\nLast T-matrix output:\n");
 	for (int i = 0; i < TRANSFORM_MATRIX_DIM; i++) {
 		for (int j = 0; j < TRANSFORM_MATRIX_DIM; j++) {
 			printf("%.2f ", array_of_T_mx[links - 1][i][j]);
 		}
 		printf("\n");
-	}*/
-
+	}
+*/
 	// 3. Third step is multiplication of T-matrixes
 	
 	for (int mult_i = 1; mult_i < links; mult_i++) {
 		int tmd = TRANSFORM_MATRIX_DIM;
 		twoMatrixMultiplication(array_of_T_mx[mult_i - 1], tmd, tmd, array_of_T_mx[mult_i], tmd, tmd);
 	}
-	/*
+/*	
 	printf("\nRESULT MATRIX (AFTER MULTIPLICATION):\n");
 	for (int i = 0; i < TRANSFORM_MATRIX_DIM; i++) {
 		for (int j = 0; j < TRANSFORM_MATRIX_DIM; j++) {
 			printf("%.2f ", array_of_T_mx[links - 1][i][j]);
 		}
 		printf("\n");
-	}*/
-
-	// memory deallocation
-	for (int i = 0; i < rows; i++) {
-		free(array[i]);
 	}
-	free(array);
-
+*/
+	// memory deallocation
 	for (int i = 0; i < links; i++) {
 		for (int j = 0; j < TRANSFORM_MATRIX_DIM; j++) {
 			free(array_of_T_mx[i][j]);
@@ -115,15 +101,6 @@ int pointCalculation(void) {
 }
 
 // functions
-
-int fillingDHParametrs(float **array, int rows, int cols) {
-	for (int i = 0; i < rows; i++) {
-		for (int j = 0; j < cols; j++) {
-			array[i][j] = i * cols + j;
-		}
-	}
-	return 0;
-}
 
 int fillingSingleTransformationMatrix(float **t_matrix, int index, float **array) {
 	t_matrix[0][0] = cos(array[index][3]);

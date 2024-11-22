@@ -1,6 +1,6 @@
 #ifndef DHTMATRIXCALC_H
 #define DHTMATRIXCALC_H
 
-int pointCalculation(void);
+int pointCalculation(int links, float** array);
 
 #endif
