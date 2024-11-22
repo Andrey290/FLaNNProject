@@ -32,7 +32,30 @@ int main(void) {
 	init_DHParametrs(array, rows, cols, 3, 5, 10, 0, 0, 0, 0);
 	
 	// 2. Second step is calculating points in ever iteration
-	pointCalculation(links, array);
+	
+	clock_t start, end;
+	double total_cpu_time;
+	start = clock();
+
+	int simulation_step = 10;
+	
+	for (int i_1 = 0; i_1 < 36; i_1++) {
+		for (int i_2 = 0; i_2 < 36; i_2++) {
+			for (int i_3 = 0; i_3 < 36; i_3++) {
+				for (int i_4 = 0; i_4 < 36; i_4++) {
+					array[3][3] = DEG_TO_RAD(i_4 * simulation_step);
+					pointCalculation(links, array);
+				}
+				array[2][3] = DEG_TO_RAD(i_3 * simulation_step);
+			}
+			array[1][3] = DEG_TO_RAD(i_2 * simulation_step);
+		}
+		array[0][3] = DEG_TO_RAD(i_1 * simulation_step);
+	}
+
+	end = clock();
+	total_cpu_time = ((double)(end - start)) / CLOCKS_PER_SEC;
+	printf("||| Total simulation time is: %.5f seconds. |||", total_cpu_time);
 
 	// memory deallocation
 	for (int i = 0; i < rows; i++) {
